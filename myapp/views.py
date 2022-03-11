@@ -22,6 +22,23 @@ def register(request):
         if len(password) < 8:
             messages.info(request, 'Password too short, a minimum of 8 characters is required')
             return redirect("register")
+
+        elif username == "":
+            messages.info(request, 'Please enter a username')
+            return redirect("register")
+        
+        elif email == "":
+            messages.info(request, 'Please emter an email')
+            return redirect("register")
+        
+        elif password == "" or password2 == "":
+            messages.info(request, 'Please enter a password')
+            return redirect("register")
+        
+        elif secret_key == "":
+            messages.info(request, 'Please enter a key provided by ')
+            return redirect("register")
+
         elif password == password2:
             if User.objects.filter(email=email).exists():
                 messages.info(request, 'Email already taken :(')
@@ -29,7 +46,7 @@ def register(request):
             elif User.objects.filter(username=username).exists():
                 messages.info(request, 'This user already exists')
                 return redirect("register")
-            elif secret_key != 1234:
+            elif secret_key != "1234":
                 messages.info(request, 'Please contact the admin for a valid key')
                 return redirect("register")
             else:
