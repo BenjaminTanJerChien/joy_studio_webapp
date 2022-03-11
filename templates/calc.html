@@ -1,0 +1,85 @@
+
+{% load static %}
+<title>Joy Studio Calculator</title>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="icon" type="image/x-icon" href= "{% static 'images/joy_studio.ico'%}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet"> 
+
+
+
+{% if user.is_authenticated %}
+<header>
+<div class="navbar">
+    <img src="{% static 'images/joy_studio_logo.jpg' %}" alt="logo" class="logo"> 
+<nav>
+<ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="profile">My Profile</a></li>
+    <li><a href="calc">Calculator</a></li>
+    <li><a href="logout">Logout</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+<p>Body Weight (kg): </p>
+<input type="number" name="body_weight_kg" placeholder="70"/>
+<p>Body Fat (%): </p>
+<input type="number" name="body_fat_p" placeholder="30"/>
+<p>Visceral Fat: </p>
+<input type="number" name="visceral_fat" placeholder="6"/>
+<p>Bone Mass (kg): </p>
+<input type="number" name="bone_mass_kg" placeholder="3"/>
+<p>Basal Metablic Rate(kcal): </p>
+<input type="number" name="bmr" placeholder="2000"/>
+<p>Metablic Age(yrs): </p>
+<input type="number" name="metabolic_age" placeholder="40"/>
+<p>Muscle Mass(kg): </p>
+<input type="number" name="muscle_mass_kg" placeholder="30"/>
+<p>Physique rating: </p>
+<input type="number" name="physique_rating" placeholder="5"/>
+<p>Water (%): </p>
+<input type="number" name="water" placeholder="70"/>
+
+<h2>Previous Data</h2>
+Initial Weight (kg)
+Initial Body Fat (%)
+Initial Muscle (kg)
+
+<button type="submit">Calculate</button>
+</form>
+
+
+<h1>Calculated!</h1>
+
+<p>Body Weight: {{body_weight_kg}}kg</p>
+<p>Body Fat: {{body_fat_kg}}kg</p>
+<p>Body Fat: {{body_fat_p}}%</p>
+<p>Visceral Fat: {{visceral_fat}}</p>
+<p>Bone Mass: {{bone_mass_kg}}kg</p>
+<p>Basal Metablic Rate: {{bmr}}kcal </p>
+<p>Metabolic Age: {{metabolic_age}}years old</p>
+<p>Muscle Mass: {{muscle_mass_kg}}kg</p>
+<p>Body Weight Loss: kg</p> 
+<p>Body Fat Loss: kg</p>
+
+
+
+{% else %}
+<header>
+<div class="navbar">
+    <img src="{% static 'images/joy_studio_logo.jpg' %}" alt="logo" class="logo">
+<nav>
+<ul>
+    <li><a href="login">Login or Sign Up</a></li>
+</ul>
+</nav>
+</div>
+</header>
+{% endif %}
