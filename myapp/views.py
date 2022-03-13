@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import Title, Post, Account
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from .forms import UpdateProfileForm 
+from django.contrib.auth import update_session_auth_hash
 
 
 # Create your views here.
@@ -90,9 +93,16 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 def profile_update(request):
-    if request == "POST":
-        pass
-    return render(request, 'profile_update.html')
+    if request.method == "POST":
+        form = UpdateProfileForm(request.POST, instance=request.user)
+        if form.is_valid:
+            form.save()
+            return redirect('/profile')
+            
+    else:
+        form = UpdateProfileForm(instance=request.user)
+        context = {'form' : form }
+        return render(request, 'profile_update.html', context)
 
 def post(request, pk):
     post = Post.objects.get(id=pk)
@@ -132,4 +142,23 @@ def calc(request):
 
     return render(request, 'calc.html')
 
+def change_password(request):
+    if request.method =="POST":
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('/profile')
+
+        else:
+            messages.info(request, 'Please contact the admin for a valid key')
+            return redirect('profile/change-password')
+    else:
+        form = PasswordChangeForm(user=request.user)
+        context = {'form' : form }
+        return render(request, 'change_password.html', context)
+
+def reset_password():
+    pass
     

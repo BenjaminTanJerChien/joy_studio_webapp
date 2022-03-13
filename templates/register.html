@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<title>Register Now</title>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    </head>
+
 <h1>Sign up here!</h1>
 
 {% for message in messages %}
@@ -18,3 +30,4 @@
 <input type="text" name="secret_key" /><br/>
 <input type="submit" name="form" value="Sign Up Now!" />
 </form>
+</html>

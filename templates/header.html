@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 {% load static %}
 <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -15,20 +16,32 @@
     </head>
 
 
-<h1>Login Now</h1>
-{% for message in messages %}
-<h5>{{message}}</h5>
-{% endfor %}
+{% if user.is_authenticated %}
+<header>
+<div class="navbar">
+    <img src="{% static 'images/joy_studio_logo.jpg' %}" alt="logo" class="logo">
+<nav>
+<ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/profile">My Profile</a></li>
+    <li><a href="/calc">Calculator</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+</nav>
+</div>
+</header>
 
-<form action="login" method="POST">
-    {% csrf_token %}
-<p>Username: </p>
-<input type="text" name="username" placeholder="Enter username" />
-<p>Password:</p>
-<input type="password" name="password" placeholder="Enter password" />
-<input type="submit" name="form" value="Login"/>
-</form>
-<a>Forgot password?</a>
-<a>Don't have an account?</a>
 
-</html>
+{% else %}
+<header>
+<div class="navbar">
+    <img src="{% static 'images/joy_studio_logo.jpg' %}" alt="logo" class="logo">
+<nav>
+<ul>
+    <li><a href="login">Login or Sign Up</a></li>
+</ul>
+</nav>
+</div>
+</header>
+{% endif %}
+

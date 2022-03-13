@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 {% load static %}
 <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -11,7 +12,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-         <title>Joy Studio</title>
+
     </head>
 
 
@@ -22,13 +23,27 @@
 <nav>
 <ul>
     <li><a href="/">Home</a></li>
-    <li><a href="profile">My Profile</a></li>
-    <li><a href="calc">Calculator</a></li>
-    <li><a href="logout">Logout</a></li>
+    <li><a href="/profile">My Profile</a></li>
+    <li><a href="/calc">Calculator</a></li>
+    <li><a href="/logout">Logout</a></li>
 </ul>
 </nav>
 </div>
 </header>
+
+
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+     <button type="submit">Submit</button>
+    </form> 
+</div>
+
+
+
+
+
 
 
 {% else %}
@@ -44,48 +59,7 @@
 </header>
 {% endif %}
 
-<div class="welcome">
-<img src="{% static 'images/index_main.jpg' %}" alt="2 tulips on a black background" class="bg_image"/>
-{% if user.is_authenticated %}
-<h2 id="welcome">Welcome {{user.username.title|truncatewords:1}}<br>to Joy Studio!</h2>
-{% else %}
-<h2 id="welcome">Welcome!</h2>
-{% endif %}
-</div>
+<title>Update Profile</title>
 
 
-<body>
-{% if user.is_authenticated %}
-<h1>Anouncements</h1>
-{% for post in posts reversed %}
-<div class="column">
-    <a class="posts" href="/post/{{post.id}}">
-    <div class="card">
-    <h2>{{post.title}}</h2>
-    <h5>{{post.created}}</h5>
-    <p>{{post.body|truncatewords:100}}</p></div>
-</a>
-</div>
-{% endfor %}
-
-
-{% else %}
-<div>
-    <h1>Please <a href="/login">Log In</a> or <a href="/register">Sign Up</a> to view the page content</h1>
-</div>
-
-<div>Who are we? 
-
-</div>
-
-{% endif %}
-</body>
-<footer class="footer">
-    <div class="footer-content">
-    
-    </div>
-    <div class="footer-bottom">
-        &copy; Joy Studio | Developed by Benjamin Tan
-    </div>
-</footer>
 </html>

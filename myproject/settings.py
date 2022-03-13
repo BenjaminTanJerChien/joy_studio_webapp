@@ -141,3 +141,7 @@ django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+
