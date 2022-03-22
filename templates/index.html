@@ -1,48 +1,7 @@
-<!DOCTYPE html>
+<title>Joy Studio</title>
+{% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'style.css' %}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet"> 
-<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet"> 
-<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300&display=swap" rel="stylesheet">
-<html>
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-         <title>Joy Studio</title>
-    </head>
-
-
-{% if user.is_authenticated %}
-<header>
-<div class="navbar">
-    <img src="{% static 'images/joy_studio_logo.jpg' %}" alt="logo" class="logo">
-<nav>
-<ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="profile">My Profile</a></li>
-    <li><a href="calc">Calculator</a></li>
-    <li><a href="logout">Logout</a></li>
-</ul>
-</nav>
-</div>
-</header>
-
-
-{% else %}
-<header>
-<div class="navbar">
-    <img src="{% static 'images/joy_studio_logo.jpg' %}" alt="logo" class="logo">
-<nav>
-<ul>
-    <li><a href="login">Login or Sign Up</a></li>
-</ul>
-</nav>
-</div>
-</header>
-{% endif %}
+{% block content %}
 
 <div class="welcome">
 <img src="{% static 'images/index_main.jpg' %}" alt="2 tulips on a black background" class="bg_image"/>
@@ -79,13 +38,5 @@
 </div>
 
 {% endif %}
-</body>
-<footer class="footer">
-    <div class="footer-content">
-    
-    </div>
-    <div class="footer-bottom">
-        &copy; Joy Studio | Developed by Benjamin Tan
-    </div>
-</footer>
-</html>
+
+{% endblock %}

@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'style.css' %}">
-html>
+{% block content %}
+
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -15,3 +15,5 @@ html>
 <p>{{post.body}}</p>
 </div>
 </html>
+
+{% endblock %}
