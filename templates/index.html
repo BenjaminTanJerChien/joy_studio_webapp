@@ -2,9 +2,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+<div class="main">
 <div class="welcome">
-<img src="{% static 'images/index_main.jpg' %}" alt="2 tulips on a black background" class="bg_image"/>
 {% if user.is_authenticated %}
 <h2 id="welcome">Welcome {{user.username.title|truncatewords:1}}<br>to Joy Studio!</h2>
 {% else %}
@@ -36,7 +35,6 @@
 <div>Who are we? 
 
 </div>
-
 {% endif %}
-
+</div>
 {% endblock %}
