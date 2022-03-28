@@ -113,52 +113,36 @@ def calc(request):
     
     calculate = True
     if request.method == "POST":
-        body_weight_kg  = request.POST['body_weight_kg']
-        body_fat_p = request.POST['body_fat_p']
-        visceral_fat = request.POST['visceral_fat']
-        bone_mass_kg = request.POST['bone_mass_kg']
-        bmr = request.POST['bmr']
-        metabolic_age = request.POST['metabolic_age']
-        muscle_mass_kg = request.POST['muscle_mass_kg']
-        physique_rating = request.POST['physique_rating']
-        water = request.POST['water']
-        body_fat_kg = (int(body_weight_kg) * int(body_fat_p)) / 100
-        muscle_mass_p = (int(muscle_mass_kg) / int(body_weight_kg)) * 100
-        calculate = True
+        try:
+            body_weight_kg  = request.POST['body_weight_kg']
+            body_fat_p = request.POST['body_fat_p']
+            visceral_fat = request.POST['visceral_fat']
+            bone_mass_kg = request.POST['bone_mass_kg']
+            bmr = request.POST['bmr']
+            metabolic_age = request.POST['metabolic_age']
+            muscle_mass_kg = request.POST['muscle_mass_kg']
+            physique_rating = request.POST['physique_rating']
+            water = request.POST['water']
+            body_fat_kg = (int(body_weight_kg) * int(body_fat_p)) / 100
+            muscle_mass_p = (int(muscle_mass_kg) / int(body_weight_kg)) * 100
+            calculate = True
 
-        context = {'body_weight_kg' : body_weight_kg, 
-        'body_fat_p' : body_fat_p, 
-        'visceral_fat': visceral_fat, 
-        'bone_mass_kg' : bone_mass_kg, 
-        'bmr' : bmr, 
-        'metabolic_age' : metabolic_age,
-        'muscle_mass_kg' : muscle_mass_kg, 
-        'physique_rating' : physique_rating, 
-        'water' : water, 
-        'body_fat_kg' : body_fat_kg, 
-        'muscle_mass_p' : muscle_mass_p,
-        'calculate' : calculate }
-        return render(request, 'calc.html', context)
-
+            context = {'body_weight_kg' : body_weight_kg, 
+            'body_fat_p' : body_fat_p, 
+            'visceral_fat': visceral_fat, 
+            'bone_mass_kg' : bone_mass_kg, 
+            'bmr' : bmr, 
+            'metabolic_age' : metabolic_age,
+            'muscle_mass_kg' : muscle_mass_kg, 
+            'physique_rating' : physique_rating, 
+            'water' : water, 
+            'body_fat_kg' : body_fat_kg, 
+            'muscle_mass_p' : muscle_mass_p,
+            'calculate' : calculate }
+            return render(request, 'calc.html', context)
+        except:
+            messages.info(request, 'Please make sure that all fields are filled')
+            
     return render(request, 'calc.html')
 
-def change_password(request):
-    if request.method =="POST":
-        form = PasswordChangeForm(data=request.POST, user=request.user)
-        
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            return redirect('/profile')
-
-        else:
-            messages.info(request, 'Please contact the admin for a valid key')
-            return redirect('profile/change-password')
-    else:
-        form = PasswordChangeForm(user=request.user)
-        context = {'form' : form }
-        return render(request, 'change_password.html', context)
-
-def reset_password():
-    pass
     

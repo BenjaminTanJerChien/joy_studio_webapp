@@ -27,7 +27,7 @@ header ::after{
 }
 
 .logo{
-    border-radius: 50px;
+    border-radius: 50%;
     width: 80px;
     float: left;
     padding: 10px 0;
