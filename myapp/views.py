@@ -4,8 +4,18 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import Title, Post, Account
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
-from .forms import UpdateProfileForm 
 from django.contrib.auth import update_session_auth_hash
+
+
+from collections import OrderedDict
+
+from .google_spreadsheets import *
+from datetime import date
+
+#needed variables
+
+date = date.today()
+date = str(date)
 
 
 # Create your views here.
@@ -89,20 +99,62 @@ def logout(request):
 def profile(request):
     user = request.user
     user_account = Account.objects.filter(user=user.id)
-    context = {'user' : user, 'user_account' : user_account}
+    worksheets = get_worksheets()
+    user_name = str(user)
+    if user_name not in worksheets:
+        make_sheet(user_name)
+    data = read_main_spreadsheet()
+    user_data = None
+    for i in range(1, len(data)):
+        print(data[i][0])
+        if str(data[i][0]) == str(user):
+            user_data = data[i]
+    individual_data = read_individual_spreadsheet(user_name)
+    try:
+        baseline_data = individual_data[0]
+        current_data = individual_data[len(individual_data) - 1]
+    except:
+        baseline_data = None
+        current_data = None
+
+    context = {"user_data" : user_data, "baseline_data" : baseline_data, "current_data" : current_data}
     return render(request, 'profile.html', context)
 
-def profile_update(request):
+def add_stats(request):
+    user = request.user
+    user_name = str(user)
     if request.method == "POST":
-        form = UpdateProfileForm(request.POST, instance=request.user)
-        if form.is_valid:
-            form.save()
-            return redirect('/profile')
-            
-    else:
-        form = UpdateProfileForm(instance=request.user)
-        context = {'form' : form }
-        return render(request, 'profile_update.html', context)
+        try:
+            body_weight_kg  = request.POST['body_weight_kg']
+            body_fat_p = request.POST['body_fat_p']
+            visceral_fat = request.POST['visceral_fat']
+            bone_mass_kg = request.POST['bone_mass_kg']
+            bmr = request.POST['bmr']
+            metabolic_age = request.POST['metabolic_age']
+            muscle_mass_kg = request.POST['muscle_mass_kg']
+            physique_rating = request.POST['physique_rating']
+            water = request.POST['water']
+        except:
+            pass
+        data = [date,
+           body_weight_kg, 
+            body_fat_p, 
+            visceral_fat, 
+            bone_mass_kg, 
+            bmr, 
+            metabolic_age,
+            muscle_mass_kg, 
+            physique_rating, 
+            water,
+            (int(body_weight_kg) * int(body_fat_p)) / 100,
+            (int(muscle_mass_kg) / int(body_weight_kg)) * 100]
+
+        sheet = read_individual_spreadsheet(user_name)
+        position_to_add = len(sheet) + 1
+        write_individual_spreadsheet(user=user_name, position_to_add=position_to_add, data=data)
+        return redirect('/profile')
+    return render(request, 'add_stats.html')
+
 
 def post(request, pk):
     post = Post.objects.get(id=pk)
@@ -145,4 +197,6 @@ def calc(request):
             
     return render(request, 'calc.html')
 
-    
+
+def profile_update(request):
+    pass

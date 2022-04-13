@@ -6,13 +6,27 @@
 
 
 <body>
+{% if calculate %}
+<h1>Your Stats</h1>
 
-    {% for message in messages %}
-    <h5 color="red">{{message}}</h5>
-    {% endfor %}
+<p>Body Weight: {{body_weight_kg}}kg</p>
+<p>Body Fat: {{body_fat_kg}}kg</p>
+<p>Body Fat: {{body_fat_p}}%</p>
+<p>Visceral Fat: {{visceral_fat}}</p>
+<p>Bone Mass: {{bone_mass_kg}}kg</p>
+<p>Basal Metablic Rate: {{bmr}}kcal </p>
+<p>Metabolic Age: {{metabolic_age}}years old</p>
+<p>Muscle Mass: {{muscle_mass_kg}}kg</p>
+<p>Body Weight Loss: kg</p> 
+<p>Body Fat Loss: kg</p>
+{% else %}
+
+{% for message in messages %}
+<h5 color="red">{{message}}</h5>
+{% endfor %}
 
 <form action="" method="POST">
-    {% csrf_token %}
+{% csrf_token %}
 <p>Body Weight (kg): </p>
 <input type="number" name="body_weight_kg" placeholder="70"/>
 <p>Body Fat (%): </p>
@@ -32,28 +46,10 @@
 <p>Water (%): </p>
 <input type="number" name="water" placeholder="70"/>
 
-<h2>Previous Data</h2>
-Initial Weight (kg)
-Initial Body Fat (%)
-Initial Muscle (kg)
-
 <button type="submit">Calculate</button>
 </form>
 
-
-<h1>Calculated!</h1>
-
-<p>Body Weight: {{body_weight_kg}}kg</p>
-<p>Body Fat: {{body_fat_kg}}kg</p>
-<p>Body Fat: {{body_fat_p}}%</p>
-<p>Visceral Fat: {{visceral_fat}}</p>
-<p>Bone Mass: {{bone_mass_kg}}kg</p>
-<p>Basal Metablic Rate: {{bmr}}kcal </p>
-<p>Metabolic Age: {{metabolic_age}}years old</p>
-<p>Muscle Mass: {{muscle_mass_kg}}kg</p>
-<p>Body Weight Loss: kg</p> 
-<p>Body Fat Loss: kg</p>
-
+{% endif %}
 
 </body>
 

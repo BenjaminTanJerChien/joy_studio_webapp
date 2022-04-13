@@ -9,6 +9,7 @@ urlpatterns = [
     path('login', views.login, name = "login"),
     path('logout', views.logout, name = "logout"),
     path('profile', views.profile, name="profile"),
+    path('profile/add_stats', views.add_stats, name="add_stats"),
     path('profile/update', views.profile_update, name = "profile_update"),
     path('post/<str:pk>', views.post, name="post"),
     path('calc', views.calc, name="calc"),
@@ -22,6 +23,7 @@ urlpatterns = [
     path('reset_password/', auth_views.PasswordResetView.as_view(), name='reset_password'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='templates/reset_password_complete.html'),
      name='reset_password_complete'),
+    
     
    
     

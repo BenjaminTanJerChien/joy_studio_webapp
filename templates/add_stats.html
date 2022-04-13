@@ -1,0 +1,23 @@
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Body Weight (kg): </p>
+    <input type="number" name="body_weight_kg" placeholder="70"/>
+    <p>Body Fat (%): </p>
+    <input type="number" name="body_fat_p" placeholder="30"/>
+    <p>Visceral Fat: </p>
+    <input type="number" name="visceral_fat" placeholder="6"/>
+    <p>Bone Mass (kg): </p>
+    <input type="number" name="bone_mass_kg" placeholder="3"/>
+    <p>Basal Metablic Rate(kcal): </p>
+    <input type="number" name="bmr" placeholder="2000"/>
+    <p>Metablic Age(yrs): </p>
+    <input type="number" name="metabolic_age" placeholder="40"/>
+    <p>Muscle Mass(kg): </p>
+    <input type="number" name="muscle_mass_kg" placeholder="30"/>
+    <p>Physique rating: </p>
+    <input type="number" name="physique_rating" placeholder="5"/>
+    <p>Water (%): </p>
+    <input type="number" name="water" placeholder="70"/>
+    
+    <button type="submit">Add Stats</button>
+    </form>

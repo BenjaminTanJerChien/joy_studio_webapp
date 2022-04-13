@@ -33,36 +33,40 @@
 </header>
 <body>
 <div>
-<h2>{{user}}</h2>
-<p>{{user.account.gender.title}} | {{user.account.birthday}}</p>
+<h2>{{user_data.1.upper}} {{user_data.2.upper}}</h2>
+<p>{{user_data.7}} | {{user_data.5}} ({{user_data.6}} years old)</p>
 </div>
 
 <div>
-<h2>Base Stats</h2>
-<p>Body Weight:{{user.account.base_body_weight_kg}}kg</p>
-<p>Body Fat: {{user.account.base_body_fat_kg}}kg / {{user.account.base_body_fat_p}}% </p>
-<p>Visceral Fat: {{user.account.base_visceral_fat}}</p>
-<p>Bone Mass: {{user.account.base_bone_mass_kg}}kg</p>
-<p>Basal Metabolic Rate: {{user.account.base_bmr}}kcal</p>
-<p>Metabolic Age: {{user.account.base_metabolic_age}} years</p>
-<p>Muscle Mass: {{user.account.base_muscle_mass_kg}}kg / {{user.account.base_muscle_mass_p}}%</p>
-<p>Physique Rating: {{user.account.base_physique_rating }}</p>
-<p>Water: {{user.account.base_water}}%</p>
+<h2>Base Stats</h2>as at {{baseline_data.0}}
+<p>Body Weight:{{baseline_data.1}}kg</p>
+<p>Body Fat: {{baseline_data.2}}kg / {{baseline_data.10}}% </p>
+<p>Visceral Fat: {{baseline_data.3}}</p>
+<p>Bone Mass: {{baseline_data.4}}kg</p>
+<p>Basal Metabolic Rate: {{baseline_data.5}}kcal</p>
+<p>Metabolic Age: {{baseline_data.6}} years</p>
+<p>Muscle Mass: {{baseline_data.7}}kg / {{baseline_data.11}}%</p>
+<p>Physique Rating: {{baseline_data.8}}</p>
+<p>Water: {{baseline_data.9}}%</p>
 </div>
 
 <div>
 <h2>Current Stats</h2>
-<p>Body Weight: {{user.account.current_body_weight_kg}}kg</p>
-<p>Body Fat: {{user.account.current_body_fat_kg}}kg / {{user.account.current_body_fat_p}}%</p>
-<p>Visceral Fat: {{user.account.current_visceral_fat}}</p>
-<p>Bone Mass: {{user.account.current_bone_mass_kg}}kg</p>
-<p>Basal Metabolic Rate: {{user.account.current_bmr}}kcal</p>
-<p>Metabolic Age: {{user.account.current_metabolic_age}} years</p>
-<p>Muscle Mass: {{user.account.current_muscle_mass_kg}}kg / {{user.account.current_muscle_mass_p}}%</p>
-<p>Physique Rating: {{user.account.current_physique_rating }}</p>
-<p>Water: {{user.account.current_water}}%</p>
+<p>Body Weight: {{current_data.1}}kg</p>
+<p>Body Fat: {{current_data.2}}kg / {{current_data.10}}%</p>
+<p>Visceral Fat: {{current_data.3}}</p>
+<p>Bone Mass: {{current_data.4}}kg</p>
+<p>Basal Metabolic Rate: {{current_data.5}}kcal</p>
+<p>Metabolic Age: {{current_data.6}} years</p>
+<p>Muscle Mass: {{current_data.7}}kg / {{current_data.11}}%</p>
+<p>Physique Rating: {{current_data.8}}</p>
+<p>Water: {{current_data.9}}%</p>
 </div>
+
+<button onclick="window.location.href='/profile/add_stats'">Click me</button>
+
 </body>
+
 
 
 
