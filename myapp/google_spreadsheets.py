@@ -9,7 +9,7 @@ from google.oauth2 import service_account
 
 #google spreadsheet variables
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-SERVICE_ACCOUNT_FILE = r'\keys\key.json'
+SERVICE_ACCOUNT_FILE = r'/keys/key.json'
 creds = None
 creds = service_account.Credentials.from_service_account_file(
         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
