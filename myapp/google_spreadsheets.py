@@ -22,7 +22,7 @@ def read_main_spreadsheet():
         service = build('sheets', 'v4', credentials=creds)
         sheet = service.spreadsheets()
         result = sheet.values().get(spreadsheetId=MAIN_SPREADSHEET_ID,
-                                    range="Main!A1:H10000").execute()
+                                    range="Main!A1:M10000").execute()
         values = result.get('values', [])
         return values
         
@@ -46,17 +46,18 @@ def write_main_spreadsheet(position, data):
     try:
         service = build('sheets', 'v4', credentials=creds)
         sheet = service.spreadsheets()
-        request = sheet.values().update(spreadsheetId=MAIN_SPREADSHEET_ID, range=f"main!{position}1",
+        body = { 'values' : [data, []]} # data has to be 2 dimentional so an empty array makes it 2D without affecting the second row's data
+        request = sheet.values().update(spreadsheetId=MAIN_SPREADSHEET_ID, range=f"Main!A{position}",
                                         valueInputOption="USER_ENTERED",
-                                        body={"values": data}).execute()
+                                        body=body).execute()
     except HttpError as err:
         return err
-
+   
 def write_individual_spreadsheet(user, position_to_add, data):
     try:
         service = build('sheets', 'v4', credentials=creds)
         sheet = service.spreadsheets()
-        body = { 'values' : [data, ['','','','','','','','','','','','']]}
+        body = { 'values' : [data, []]} # data has to be 2 dimentional so an empty array makes it 2D without affecting the second row's data
         request = sheet.values().update(spreadsheetId=INDIVIUAL_SPREADSHEET_ID, range=f"{user}!A{position_to_add}",
                                         valueInputOption="USER_ENTERED",
                                         body=body).execute()
@@ -100,4 +101,3 @@ def make_sheet(sheet_name):
                spreadsheetId=INDIVIUAL_SPREADSHEET_ID,
                body=request_body).execute()
     print(f"New sheet created: {response}")
-

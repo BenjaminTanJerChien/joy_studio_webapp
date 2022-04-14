@@ -106,19 +106,59 @@ def profile(request):
     data = read_main_spreadsheet()
     user_data = None
     for i in range(1, len(data)):
-        print(data[i][0])
         if str(data[i][0]) == str(user):
             user_data = data[i]
     individual_data = read_individual_spreadsheet(user_name)
     try:
         baseline_data = individual_data[0]
         current_data = individual_data[len(individual_data) - 1]
-    except:
+    except: # prevents an out of range error if the spreadsheet is empty for new users
         baseline_data = None
         current_data = None
 
     context = {"user_data" : user_data, "baseline_data" : baseline_data, "current_data" : current_data}
     return render(request, 'profile.html', context)
+
+
+def update_profile(request):
+    user = request.user
+    data = read_main_spreadsheet()
+    user_data = None
+    position = len(data) + 1
+    for i in range(1, len(data)):
+        if str(data[i][0]) == str(user):
+            user_data = data[i]
+            position = i
+            break
+    if request.method == "POST":
+        try:
+            username = str(user)
+            FirstName = request.POST['FirstName']
+            LastName = request.POST['LastName']
+            Birthday = request.POST['Birthday']
+            try:
+                bd = Birthday.split("-")
+                ParsedBday = f"{bd[1]}/{bd[2]}/{bd[0]}"
+            except:
+                ParsedBday = "1/1/1111"
+            Age = f'=ROUNDDOWN(YEARFRAC(D{position + 1}, TODAY(), 1))'
+            Gender = request.POST['Gender']
+            Height = request.POST['Height']
+            email = request.POST['email']
+        except:
+            messages.info(request, 'Please make sure that all fields are filled')
+        info = [username, FirstName, LastName, ParsedBday, Age, Gender, Height, email]
+        print(info)
+        if user_data == None:
+            length = len(read_main_spreadsheet()) + 1
+            write_main_spreadsheet(length, info)
+        elif str(data[position][0]) == str(user):
+            write_main_spreadsheet(position + 1 , info)
+        else:
+            messages.info(request, 'ERROR')
+        return redirect('/profile')
+    context = {"user_data" : user_data}
+    return render(request, 'update_profile.html', context)
 
 def add_stats(request):
     user = request.user
@@ -135,7 +175,7 @@ def add_stats(request):
             physique_rating = request.POST['physique_rating']
             water = request.POST['water']
         except:
-            pass
+            messages.info(request, 'Please make sure that all fields are filled')
         data = [date,
            body_weight_kg, 
             body_fat_p, 
@@ -196,7 +236,3 @@ def calc(request):
             messages.info(request, 'Please make sure that all fields are filled')
             
     return render(request, 'calc.html')
-
-
-def profile_update(request):
-    pass

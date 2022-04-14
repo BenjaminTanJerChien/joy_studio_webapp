@@ -33,10 +33,10 @@
 </header>
 <body>
 <div>
-<h2>{{user_data.1.upper}} {{user_data.2.upper}}</h2>
-<p>{{user_data.7}} | {{user_data.5}} ({{user_data.6}} years old)</p>
+<h2>{{user_data.1.upper}} {{user_data.2.upper}}</h2>{{user_data.7}}
+<p>{{user_data.5}} | {{user_data.3}} ({{user_data.6}} years old) | {{user_data.8}}(cm)</p>
 </div>
-
+<button onclick="window.location.href='/profile/update'">Update Profile</button>
 <div>
 <h2>Base Stats</h2>as at {{baseline_data.0}}
 <p>Body Weight:{{baseline_data.1}}kg</p>
@@ -63,7 +63,7 @@
 <p>Water: {{current_data.9}}%</p>
 </div>
 
-<button onclick="window.location.href='/profile/add_stats'">Click me</button>
+<button onclick="window.location.href='/profile/add_stats'">Add stats</button>
 
 </body>
 
