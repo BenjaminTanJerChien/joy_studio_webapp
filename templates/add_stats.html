@@ -1,3 +1,9 @@
+<title>Add Stats</title>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
 <form action="" method="POST">
     {% csrf_token %}
     <p>Body Weight (kg): </p>
@@ -21,3 +27,5 @@
     
     <button type="submit">Add Stats</button>
     </form>
+
+{% endblock %}

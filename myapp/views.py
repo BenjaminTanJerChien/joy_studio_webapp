@@ -148,7 +148,6 @@ def update_profile(request):
         except:
             messages.info(request, 'Please make sure that all fields are filled')
         info = [username, FirstName, LastName, ParsedBday, Age, Gender, Height, email]
-        print(info)
         if user_data == None:
             length = len(read_main_spreadsheet()) + 1
             write_main_spreadsheet(length, info)
